@@ -36,6 +36,16 @@ services:
       - cypher-net
     restart: unless-stopped
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - cypher-net
+    restart: unless-stopped
+
 networks:
   cypher-net:
     driver: bridge
