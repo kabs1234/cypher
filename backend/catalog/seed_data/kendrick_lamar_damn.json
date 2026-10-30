@@ -1,0 +1,216 @@
+{
+  "artist": {
+    "name": "Kendrick Lamar",
+    "city_region": "Compton, California",
+    "active_since": 2003,
+    "bio": "Rapper from Compton, California, signed to Top Dawg Entertainment. Studio albums include Section.80 (2011), good kid, m.A.A.d city (2012), To Pimp a Butterfly (2015) and DAMN. (2017)."
+  },
+  "album": {
+    "title": "DAMN.",
+    "release_year": 2017,
+    "overview_status": "draft",
+    "overview": "DAMN. is Kendrick Lamar's fourth studio album, released on April 14, 2017 by Top Dawg Entertainment, Aftermath Entertainment and Interscope Records. It has 14 tracks, and every title is a single word in capital letters ending with a period (BLOOD., DNA., PRIDE., HUMBLE., FEAR. and so on). Many titles come in pairs of opposite or related ideas, such as PRIDE. and HUMBLE. or LUST. and LOVE.\n\nThemes: faith and God, fear, temptation, pride and humility, loyalty, and Black identity in America. Religion is central: Lamar's cousin Carl Duckworth, a member of the Black Hebrew Israelites, appears in voicemails that cite the Book of Deuteronomy and its warnings about punishment for disobeying God. Media criticism is another thread: clips of Fox News commentators attacking his 2015 BET Awards performance of \"Alright\" are sampled on BLOOD. and DNA., and he answers Geraldo Rivera directly on YAH.\n\nStructure: the album opens with BLOOD., a short spoken story, and closes with DUCKWORTH., a true story about how Top Dawg Entertainment founder Anthony Tiffith once decided not to rob the KFC where Lamar's father worked. Lamar said the album also works in reverse order and that this was planned in the studio; in December 2017 a Collector's Edition was released with the same songs in reversed order.\n\nBefore listening: know that Compton is Lamar's hometown, that Top Dawg Entertainment is his label, and that the album reacts to the national debate around his previous album, To Pimp a Butterfly, and its song \"Alright\". DAMN. won the 2018 Pulitzer Prize for Music, the first winner from outside classical music and jazz, and the Grammy Award for Best Rap Album."
+  },
+  "tracks": [
+    {"track_number": 1, "title": "BLOOD.", "duration_seconds": 118},
+    {"track_number": 2, "title": "DNA.", "duration_seconds": 185},
+    {"track_number": 3, "title": "YAH.", "duration_seconds": 160},
+    {"track_number": 4, "title": "ELEMENT.", "duration_seconds": 208},
+    {"track_number": 5, "title": "FEEL.", "duration_seconds": 214},
+    {"track_number": 6, "title": "LOYALTY. (feat. Rihanna)", "duration_seconds": 227},
+    {"track_number": 7, "title": "PRIDE.", "duration_seconds": 275},
+    {"track_number": 8, "title": "HUMBLE.", "duration_seconds": 177},
+    {"track_number": 9, "title": "LUST.", "duration_seconds": 307},
+    {"track_number": 10, "title": "LOVE. (feat. Zacari)", "duration_seconds": 213},
+    {"track_number": 11, "title": "XXX. (feat. U2)", "duration_seconds": 254},
+    {"track_number": 12, "title": "FEAR.", "duration_seconds": 460},
+    {"track_number": 13, "title": "GOD.", "duration_seconds": 248},
+    {"track_number": 14, "title": "DUCKWORTH.", "duration_seconds": 248}
+  ],
+  "terms": [
+    {
+      "name": "Compton",
+      "type": "place",
+      "explanation": "A city in Los Angeles County, California, and Kendrick Lamar's hometown. In the 1980s and 1990s it became known for gang violence and for West Coast hip-hop, and Lamar often describes growing up there.",
+      "sources": ["https://en.wikipedia.org/wiki/Compton,_California", "https://en.wikipedia.org/wiki/Fear_(Kendrick_Lamar_song)"],
+      "notes": ""
+    },
+    {
+      "name": "Top Dawg Entertainment",
+      "type": "brand",
+      "explanation": "An independent record label from Los Angeles, often shortened to TDE, founded by Anthony \"Top Dawg\" Tiffith. Kendrick Lamar was signed to TDE, and DAMN. was released by TDE together with Aftermath and Interscope.",
+      "sources": ["https://en.wikipedia.org/wiki/Top_Dawg_Entertainment", "https://en.wikipedia.org/wiki/Duckworth_(song)"],
+      "notes": ""
+    },
+    {
+      "name": "Anthony \"Top Dawg\" Tiffith",
+      "type": "person",
+      "explanation": "Founder and head of Top Dawg Entertainment and executive producer of DAMN. DUCKWORTH. tells how, years before signing Lamar, he planned to rob the KFC where Lamar's father worked, but decided not to.",
+      "sources": ["https://en.wikipedia.org/wiki/Duckworth_(song)", "https://en.wikipedia.org/wiki/Top_Dawg_Entertainment"],
+      "notes": ""
+    },
+    {
+      "name": "Kenny \"Ducky\" Duckworth",
+      "type": "person",
+      "explanation": "Kendrick Lamar's father. In the story of DUCKWORTH. he works at a KFC drive-thru and gives Anthony Tiffith free chicken and extra biscuits, which helps change Tiffith's mind about robbing the restaurant.",
+      "sources": ["https://en.wikipedia.org/wiki/Duckworth_(song)", "https://en.wikipedia.org/wiki/Kendrick_Lamar"],
+      "notes": ""
+    },
+    {
+      "name": "KFC",
+      "type": "brand",
+      "explanation": "Kentucky Fried Chicken, an American fast-food chain. The fast-food restaurant where Lamar's father worked is the setting of the true story told in DUCKWORTH.",
+      "sources": ["https://en.wikipedia.org/wiki/KFC", "https://en.wikipedia.org/wiki/Duckworth_(song)"],
+      "notes": ""
+    },
+    {
+      "name": "Fox News",
+      "type": "brand",
+      "explanation": "An American cable news channel with a conservative political position. Its commentators criticised Lamar's 2015 BET Awards performance, and DAMN. samples those TV clips on BLOOD. and DNA.",
+      "sources": ["https://en.wikipedia.org/wiki/Fox_News", "https://en.wikipedia.org/wiki/Damn_(album)"],
+      "notes": ""
+    },
+    {
+      "name": "Geraldo Rivera",
+      "type": "person",
+      "explanation": "An American TV journalist who worked for Fox News. After the 2015 BET Awards he called Lamar's performance \"disgusting\" and said hip-hop had done more damage to African Americans than racism in recent years. His comments are sampled on DNA., and Lamar responds to him by name on YAH.",
+      "sources": ["https://en.wikipedia.org/wiki/Geraldo_Rivera", "https://en.wikipedia.org/wiki/Alright_(Kendrick_Lamar_song)", "https://en.wikipedia.org/wiki/Yah_(song)"],
+      "notes": "Quoted words are Rivera's TV comment, not lyrics."
+    },
+    {
+      "name": "Eric Bolling",
+      "type": "person",
+      "explanation": "A former Fox News host. He is one of the commentators whose criticism of Lamar's 2015 BET Awards performance is sampled on BLOOD.",
+      "sources": ["https://en.wikipedia.org/wiki/Eric_Bolling", "https://en.wikipedia.org/wiki/Damn_(album)"],
+      "notes": "Album article says the Fox News clips appear on BLOOD. and DNA.; check which voices are on which track."
+    },
+    {
+      "name": "Kimberly Guilfoyle",
+      "type": "person",
+      "explanation": "A former Fox News host. She is one of the commentators whose criticism of Lamar's 2015 BET Awards performance is sampled on BLOOD.",
+      "sources": ["https://en.wikipedia.org/wiki/Kimberly_Guilfoyle", "https://en.wikipedia.org/wiki/Damn_(album)"],
+      "notes": "Album article says the Fox News clips appear on BLOOD. and DNA.; check which voices are on which track."
+    },
+    {
+      "name": "2015 BET Awards performance",
+      "type": "event",
+      "explanation": "In June 2015 Lamar opened the BET Awards by performing \"Alright\" while standing on a graffiti-covered police car in front of a large American flag. Fox News commentators criticised it, and DAMN. answers that criticism.",
+      "sources": ["https://en.wikipedia.org/wiki/Alright_(Kendrick_Lamar_song)", "https://en.wikipedia.org/wiki/BET_Awards_2015"],
+      "notes": ""
+    },
+    {
+      "name": "\"Alright\"",
+      "type": "other",
+      "explanation": "A 2015 song from Lamar's album To Pimp a Butterfly. Protesters against police brutality chanted its chorus, and it became widely seen as an anthem of the Black Lives Matter movement. It is the song he performed at the 2015 BET Awards.",
+      "sources": ["https://en.wikipedia.org/wiki/Alright_(Kendrick_Lamar_song)"],
+      "notes": ""
+    },
+    {
+      "name": "Black Lives Matter",
+      "type": "event",
+      "explanation": "A social movement against police violence and racism towards Black people, which grew in the United States from 2013. Lamar's song \"Alright\" became connected to its protests, which is part of why the Fox News criticism was controversial.",
+      "sources": ["https://en.wikipedia.org/wiki/Black_Lives_Matter", "https://en.wikipedia.org/wiki/Alright_(Kendrick_Lamar_song)"],
+      "notes": ""
+    },
+    {
+      "name": "Black Hebrew Israelites",
+      "type": "religion",
+      "explanation": "A religious movement whose members believe that African Americans are descendants of the ancient Israelites of the Bible. Lamar's cousin Carl Duckworth belongs to it. On YAH. Lamar identifies as an Israelite, and the voicemails on FEAR. explain these beliefs.",
+      "sources": ["https://en.wikipedia.org/wiki/Black_Hebrew_Israelites", "https://en.wikipedia.org/wiki/Yah_(song)", "https://en.wikipedia.org/wiki/Fear_(Kendrick_Lamar_song)"],
+      "notes": "Lamar's own position on these beliefs is not clearly stated; YAH. expresses some sympathy."
+    },
+    {
+      "name": "Book of Deuteronomy",
+      "type": "religion",
+      "explanation": "The fifth book of the Torah and of the Christian Old Testament. Chapter 28 lists blessings for obeying God and curses for disobeying. Carl Duckworth reads from it in his voicemail on FEAR.",
+      "sources": ["https://en.wikipedia.org/wiki/Book_of_Deuteronomy", "https://en.wikipedia.org/wiki/Fear_(Kendrick_Lamar_song)"],
+      "notes": "Fear article cites Deuteronomy 28:28."
+    },
+    {
+      "name": "Yahweh",
+      "type": "religion",
+      "explanation": "A name of God in the Hebrew Bible, written YHWH in Hebrew. The title of the track YAH. refers to it.",
+      "sources": ["https://en.wikipedia.org/wiki/Yahweh", "https://en.wikipedia.org/wiki/Yah_(song)"],
+      "notes": ""
+    },
+    {
+      "name": "Carl Duckworth",
+      "type": "person",
+      "explanation": "Kendrick Lamar's cousin, a member of a Black Hebrew Israelite group, later known as Karni Israel Duckworth. He taught Lamar about Deuteronomy, is mentioned on YAH., and his voicemails open and close FEAR.",
+      "sources": ["https://en.wikipedia.org/wiki/Fear_(Kendrick_Lamar_song)", "https://en.wikipedia.org/wiki/Yah_(song)"],
+      "notes": ""
+    },
+    {
+      "name": "Rihanna",
+      "type": "person",
+      "explanation": "A singer from Barbados and one of the best-selling artists in the world. She is the featured artist on LOYALTY.",
+      "sources": ["https://en.wikipedia.org/wiki/Rihanna", "https://en.wikipedia.org/wiki/Damn_(album)"],
+      "notes": ""
+    },
+    {
+      "name": "Zacari",
+      "type": "person",
+      "explanation": "An American singer. He is the featured artist on LOVE.",
+      "sources": ["https://en.wikipedia.org/wiki/Damn_(album)"],
+      "notes": ""
+    },
+    {
+      "name": "U2",
+      "type": "person",
+      "explanation": "An Irish rock band led by singer Bono. They are featured on XXX., which also samples their song \"American Soul\", where Lamar appears.",
+      "sources": ["https://en.wikipedia.org/wiki/U2", "https://en.wikipedia.org/wiki/Damn_(album)"],
+      "notes": "A band, stored as type person because there is no group type."
+    },
+    {
+      "name": "Barack Obama",
+      "type": "person",
+      "explanation": "The 44th President of the United States (2009-2017). Lamar mentions him on HUMBLE.",
+      "sources": ["https://en.wikipedia.org/wiki/Barack_Obama", "https://en.wikipedia.org/wiki/Humble_(song)"],
+      "notes": "The Humble article mentions the reference only through a critic; confirm the timestamp."
+    },
+    {
+      "name": "To Pimp a Butterfly",
+      "type": "other",
+      "explanation": "Lamar's 2015 album, which made him one of the most discussed artists in America. The last part of FEAR. is about his fears after that success, such as losing everything he has gained.",
+      "sources": ["https://en.wikipedia.org/wiki/To_Pimp_a_Butterfly", "https://en.wikipedia.org/wiki/Fear_(Kendrick_Lamar_song)"],
+      "notes": ""
+    },
+    {
+      "name": "Kung Fu Kenny",
+      "type": "other",
+      "explanation": "Lamar's alter ego during the DAMN. era, used in the DNA. music video and his 2017 Coachella performance. The name comes from Don Cheadle's character Kenny in the film Rush Hour 2, and Cheadle appears in the DNA. video.",
+      "sources": ["https://en.wikipedia.org/wiki/DNA_(Kendrick_Lamar_song)", "https://www.thefader.com/2017/04/20/don-cheadle-confirms-kendrick-lamars-kung-fu-kenny-moniker-is-a-irush-hour-2i-reference"],
+      "notes": "Not anchored to a timestamp: documented in the video and live shows, not confirmed in the audio."
+    }
+  ],
+  "references": [
+    {"track_number": 1, "term": "Fox News", "timestamp_seconds": 95, "context_note": "The outro switches to TV news audio: Fox News commentators discussing Lamar."},
+    {"track_number": 1, "term": "Eric Bolling", "timestamp_seconds": 95, "context_note": "One of the Fox News voices in the outro clip."},
+    {"track_number": 1, "term": "Kimberly Guilfoyle", "timestamp_seconds": 95, "context_note": "One of the Fox News voices in the outro clip."},
+    {"track_number": 1, "term": "2015 BET Awards performance", "timestamp_seconds": 95, "context_note": "The news clip is criticism of his 2015 BET Awards performance."},
+    {"track_number": 1, "term": "\"Alright\"", "timestamp_seconds": 95, "context_note": "The criticised performance was of \"Alright\"."},
+    {"track_number": 1, "term": "Black Lives Matter", "timestamp_seconds": 95, "context_note": "Background: \"Alright\" was a protest anthem, which made the criticism controversial."},
+    {"track_number": 2, "term": "Fox News", "timestamp_seconds": 110, "context_note": "At the beat switch, a Fox News clip about Lamar is sampled."},
+    {"track_number": 2, "term": "Geraldo Rivera", "timestamp_seconds": 110, "context_note": "Rivera's on-air comment about hip-hop is sampled at the beat switch."},
+    {"track_number": 3, "term": "Yahweh", "timestamp_seconds": 0, "context_note": "The track title refers to Yahweh, a Hebrew name of God."},
+    {"track_number": 3, "term": "Fox News", "timestamp_seconds": 40, "context_note": "Lamar addresses how Fox News used his name."},
+    {"track_number": 3, "term": "Geraldo Rivera", "timestamp_seconds": 40, "context_note": "Lamar answers Rivera by name."},
+    {"track_number": 3, "term": "Black Hebrew Israelites", "timestamp_seconds": 95, "context_note": "Lamar identifies as an Israelite rather than with the label \"Black\"."},
+    {"track_number": 3, "term": "Carl Duckworth", "timestamp_seconds": 120, "context_note": "Lamar mentions his cousin Carl and what he taught him."},
+    {"track_number": 3, "term": "Book of Deuteronomy", "timestamp_seconds": 120, "context_note": "Connected to Carl's teaching about Deuteronomy."},
+    {"track_number": 8, "term": "Barack Obama", "timestamp_seconds": 100, "context_note": "Lamar name-drops President Obama."},
+    {"track_number": 6, "term": "Rihanna", "timestamp_seconds": 25, "context_note": "Rihanna's featured vocals."},
+    {"track_number": 10, "term": "Zacari", "timestamp_seconds": 10, "context_note": "Zacari sings the hook."},
+    {"track_number": 11, "term": "U2", "timestamp_seconds": 190, "context_note": "Bono of U2 sings in the final part of the track."},
+    {"track_number": 12, "term": "Carl Duckworth", "timestamp_seconds": 0, "context_note": "The song opens with a voicemail from Lamar's cousin Carl."},
+    {"track_number": 12, "term": "Book of Deuteronomy", "timestamp_seconds": 10, "context_note": "In the voicemail Carl reads from Deuteronomy (cited as 28:28)."},
+    {"track_number": 12, "term": "Black Hebrew Israelites", "timestamp_seconds": 20, "context_note": "The voicemail explains Hebrew Israelite beliefs about God's punishment."},
+    {"track_number": 12, "term": "Compton", "timestamp_seconds": 180, "context_note": "Second section: his fears at age 17, growing up in Compton."},
+    {"track_number": 12, "term": "To Pimp a Butterfly", "timestamp_seconds": 330, "context_note": "Third section: his fears at age 27, after the success of To Pimp a Butterfly."},
+    {"track_number": 12, "term": "Carl Duckworth", "timestamp_seconds": 430, "context_note": "Near the end a second voicemail from Carl continues the first."},
+    {"track_number": 14, "term": "Kenny \"Ducky\" Duckworth", "timestamp_seconds": 20, "context_note": "The story begins with Lamar's father working at a KFC."},
+    {"track_number": 14, "term": "Anthony \"Top Dawg\" Tiffith", "timestamp_seconds": 35, "context_note": "Tiffith, future head of TDE, is introduced as a regular customer planning a robbery."},
+    {"track_number": 14, "term": "KFC", "timestamp_seconds": 50, "context_note": "Ducky gives free chicken and extra biscuits at the drive-thru."},
+    {"track_number": 14, "term": "Top Dawg Entertainment", "timestamp_seconds": 210, "context_note": "The ending explains that this moment led to Lamar later signing with TDE."}
+  ]
+}
