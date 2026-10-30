@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "django_filters",
+    "drf_spectacular",
     "catalog",
 ]
 
@@ -79,4 +80,22 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Cypher API",
+    "DESCRIPTION": (
+        "Cultural context for hip-hop tracks: artists, albums, tracks, terms "
+        "(slang, people, places, events, brands) and timestamped references "
+        "that link a term to a moment in a track."
+    ),
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "ENUM_NAME_OVERRIDES": {
+        "ContentStatusEnum": "catalog.models.ContentStatus",
+        "TermTypeEnum": "catalog.models.TermType",
+    },
 }
