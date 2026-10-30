@@ -167,6 +167,39 @@ npm run build      # type-check with vue-tsc, then build to dist/
 | `src/components/` | `TrackTimeline`, `TermDetail`, `ReferenceForm`, `FormField`, `StatusBadge`, `TypeTag`, `LoadState` |
 | `src/views/` | one component per route |
 
+## Spotify extension (Spicetify)
+
+`spicetify/` holds an extension for the Spotify desktop app, installed through [Spicetify](https://spicetify.app). While a track plays, it shows Cypher's explanations inside Spotify at the moment they come up, so a listener doesn't need to open the website.
+
+- A Cypher button in the playbar is active when the current track has references. Its tooltip shows how many.
+- When playback reaches a reference's timestamp, a card appears at the bottom right with the terms and the context note. It shows from 2 seconds before the timestamp to 12 seconds after, because timestamps are approximate. The × hides it for that moment.
+- The button, or "Read the explanation" on the card, opens a panel with every reference on the track: explanation, sources, editor's notes and draft status. Selecting a time plays the track from there.
+
+A Spotify track is matched to a Cypher track by artist name, album title and track number, so the API needs no Spotify ids. The reversed *DAMN.* Collector's Edition has a different album title and does not match.
+
+The extension reads the API through the `frontend` nginx service at `http://localhost:8080/api/`, so the Docker stack has to be running. Spotify loads extensions from `https://xpui.app.spotify.com`, and nginx answers `/api/` with `Access-Control-Allow-Origin` for that origin only. Django is not involved.
+
+Install (needs the Spotify desktop app with Spicetify applied):
+
+```bash
+cd spicetify
+npm install        # also downloads the Spicetify type definitions into src/types/
+npm run deploy     # type-check, build dist/cypher.js, copy it into Spicetify, spicetify apply
+```
+
+To remove it: `spicetify config extensions cypher.js-` and then `spicetify apply`.
+
+The extension reuses the API types from `frontend/src/api/types.ts`.
+
+| Path | Role |
+|---|---|
+| `src/main.ts` | waits for Spicetify, then starts the session |
+| `src/session.ts` | loads the matching Cypher track on every song change and shows or hides the card on playback progress |
+| `src/matching.ts`, `src/moments.ts` | track matching; grouping references by timestamp and finding the current one |
+| `src/ui/` | the card, the panel and their styles, built with DOM APIs and Spotify's theme variables |
+
+Spicetify modifies the Spotify client, which Spotify's terms of use do not allow, so this is for personal use and demos.
+
 ## Repository layout
 
 ```
@@ -177,6 +210,7 @@ cypher/
 ├── docs/API.md               endpoint reference
 ├── postman/                  collection + environment
 ├── frontend/                 Vue app, Dockerfile, nginx.conf
+├── spicetify/                Spotify extension
 └── backend/
     ├── Dockerfile
     ├── entrypoint.sh         migrate -> seed if empty -> runserver
