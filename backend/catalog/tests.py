@@ -1,3 +1,7 @@
+from io import StringIO
+
+from django.core.management import call_command
+from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -114,3 +118,20 @@ class TermApiTests(APITestCase):
         response = self.client.get("/api/terms/999999/")
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class SeedCommandTests(TestCase):
+    def test_seed_loads_damn_with_all_terms_as_draft(self) -> None:
+        call_command("seed", stdout=StringIO())
+
+        album =Album.objects.get(title="DAMN.")
+        self.assertEqual(album.tracks.count(), 14)
+        self.assertGreater(TrackReference.objects.count(), 0)
+        self.assertFalse(Term.objects.exclude(status="draft").exists())
+
+    def test_seed_skips_when_database_has_data(self) -> None:
+        Artist.objects.create(name="Existing Artist", active_since=1990)
+
+        call_command("seed", stdout=StringIO())
+
+        self.assertFalse(Album.objects.exists())
