@@ -1,0 +1,1697 @@
+{
+  "info": {
+    "name": "Cypher API",
+    "description": "Requests for every Cypher endpoint. Run the folders top to bottom (or the whole collection with Collection Runner): each Create request saves the new id to a collection variable, later requests use it, and the Cleanup folder deletes everything it created. Set base_url via the Cypher Local environment (default http://localhost:8000).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "artist_id",
+      "value": ""
+    },
+    {
+      "key": "album_id",
+      "value": ""
+    },
+    {
+      "key": "track_id",
+      "value": ""
+    },
+    {
+      "key": "term_id",
+      "value": ""
+    },
+    {
+      "key": "reference_id",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Artists",
+      "description": "CRUD for /api/artists/.",
+      "item": [
+        {
+          "name": "List artists",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is a list\", () => pm.expect(pm.response.json()).to.be.an(\"array\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/artists/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "artists",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create artist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"Response has an id\", () => pm.expect(pm.response.json().id).to.be.a(\"number\"));",
+                  "pm.collectionVariables.set(\"artist_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/artists/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "artists",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Postman Artist {{$timestamp}}\",\n  \"city_region\": \"Compton, California\",\n  \"active_since\": 2003,\n  \"bio\": \"Created by the Postman collection.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get artist by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"city_region is Compton, California\", () => pm.expect(pm.response.json().city_region).to.eql(\"Compton, California\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/artists/{{artist_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "artists",
+                "{{artist_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update artist (PUT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"active_since is 2004\", () => pm.expect(pm.response.json().active_since).to.eql(2004));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/artists/{{artist_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "artists",
+                "{{artist_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Postman Artist Updated {{$timestamp}}\",\n  \"city_region\": \"Compton, California\",\n  \"active_since\": 2004,\n  \"bio\": \"Replaced with PUT.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Partial update artist (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"bio is Changed with PATCH.\", () => pm.expect(pm.response.json().bio).to.eql(\"Changed with PATCH.\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/artists/{{artist_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "artists",
+                "{{artist_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bio\": \"Changed with PATCH.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Albums",
+      "description": "CRUD for /api/albums/ plus the ?artist= filter.",
+      "item": [
+        {
+          "name": "List albums",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is a list\", () => pm.expect(pm.response.json()).to.be.an(\"array\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/albums/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "albums",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create album",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"Response has an id\", () => pm.expect(pm.response.json().id).to.be.a(\"number\"));",
+                  "pm.collectionVariables.set(\"album_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/albums/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "albums",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman Album\",\n  \"release_year\": 2017,\n  \"artist\": \"{{artist_id}}\",\n  \"overview\": \"Short album briefing.\",\n  \"overview_status\": \"draft\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get album by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"title is Postman Album\", () => pm.expect(pm.response.json().title).to.eql(\"Postman Album\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/albums/{{album_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "albums",
+                "{{album_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update album (PUT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"release_year is 2018\", () => pm.expect(pm.response.json().release_year).to.eql(2018));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/albums/{{album_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "albums",
+                "{{album_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman Album (PUT)\",\n  \"release_year\": 2018,\n  \"artist\": \"{{artist_id}}\",\n  \"overview\": \"Replaced with PUT.\",\n  \"overview_status\": \"draft\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Partial update album (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"overview_status is verified\", () => pm.expect(pm.response.json().overview_status).to.eql(\"verified\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/albums/{{album_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "albums",
+                "{{album_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"overview_status\": \"verified\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Filter albums by artist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Every item has the requested artist\", () => {",
+                  "  const items = pm.response.json();",
+                  "  pm.expect(items.length).to.be.above(0);",
+                  "  items.forEach((item) => pm.expect(String(item.artist)).to.eql(String(pm.collectionVariables.get(\"artist_id\"))));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/albums/?artist={{artist_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "albums",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "artist",
+                  "value": "{{artist_id}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tracks",
+      "description": "CRUD for /api/tracks/ plus the ?album= filter.",
+      "item": [
+        {
+          "name": "List tracks",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is a list\", () => pm.expect(pm.response.json()).to.be.an(\"array\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/tracks/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "tracks",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create track",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"Response has an id\", () => pm.expect(pm.response.json().id).to.be.a(\"number\"));",
+                  "pm.collectionVariables.set(\"track_id\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tracks/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "tracks",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman Track\",\n  \"album\": \"{{album_id}}\",\n  \"track_number\": 1,\n  \"duration_seconds\": 200\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get track by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"duration_seconds is 200\", () => pm.expect(pm.response.json().duration_seconds).to.eql(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/tracks/{{track_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "tracks",
+                "{{track_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update track (PUT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"duration_seconds is 240\", () => pm.expect(pm.response.json().duration_seconds).to.eql(240));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tracks/{{track_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "tracks",
+                "{{track_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman Track (PUT)\",\n  \"album\": \"{{album_id}}\",\n  \"track_number\": 1,\n  \"duration_seconds\": 240\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Partial update track (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"title is Postman Track (PATCH)\", () => pm.expect(pm.response.json().title).to.eql(\"Postman Track (PATCH)\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/tracks/{{track_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "tracks",
+                "{{track_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Postman Track (PATCH)\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Filter tracks by album",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Every item has the requested album\", () => {",
+                  "  const items = pm.response.json();",
+                  "  pm.expect(items.length).to.be.above(0);",
+                  "  items.forEach((item) => pm.expect(String(item.album)).to.eql(String(pm.collectionVariables.get(\"album_id\"))));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/tracks/?album={{album_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "tracks",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "album",
+                  "value": "{{album_id}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Terms",
+      "description": "CRUD for /api/terms/ plus the ?type= and ?status= filters.",
+      "item": [
+        {
+          "name": "List terms",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is a list\", () => pm.expect(pm.response.json()).to.be.an(\"array\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/terms/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create term",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"Response has an id\", () => pm.expect(pm.response.json().id).to.be.a(\"number\"));",
+                  "pm.collectionVariables.set(\"term_id\", pm.response.json().id);",
+                  "pm.test(\"status is draft\", () => pm.expect(pm.response.json().status).to.eql(\"draft\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/terms/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Postman Term {{$timestamp}}\",\n  \"type\": \"place\",\n  \"explanation\": \"A city in Los Angeles County, California.\",\n  \"explanation_ru\": \"\",\n  \"sources\": \"https://en.wikipedia.org/wiki/Compton,_California\",\n  \"status\": \"draft\",\n  \"notes\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get term by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"type is place\", () => pm.expect(pm.response.json().type).to.eql(\"place\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/terms/{{term_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                "{{term_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update term (PUT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"notes is regional usage\", () => pm.expect(pm.response.json().notes).to.eql(\"regional usage\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/terms/{{term_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                "{{term_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Postman Term Updated {{$timestamp}}\",\n  \"type\": \"place\",\n  \"explanation\": \"Replaced with PUT.\",\n  \"explanation_ru\": \"\",\n  \"sources\": \"https://en.wikipedia.org/wiki/Compton,_California\",\n  \"status\": \"draft\",\n  \"notes\": \"regional usage\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Partial update term (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"status is verified\", () => pm.expect(pm.response.json().status).to.eql(\"verified\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/terms/{{term_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                "{{term_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"verified\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Filter terms by type and status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Every item has the requested type\", () => {",
+                  "  const items = pm.response.json();",
+                  "  pm.expect(items.length).to.be.above(0);",
+                  "  items.forEach((item) => pm.expect(String(item.type)).to.eql(String(\"religion\")));",
+                  "});",
+                  "pm.test(\"Every item has the requested status\", () => {",
+                  "  const items = pm.response.json();",
+                  "  pm.expect(items.length).to.be.above(0);",
+                  "  items.forEach((item) => pm.expect(String(item.status)).to.eql(String(\"draft\")));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/terms/?type=religion&status=draft",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "religion"
+                },
+                {
+                  "key": "status",
+                  "value": "draft"
+                }
+              ]
+            },
+            "description": "Uses the seeded DAMN. data: religious references that still need verification."
+          }
+        }
+      ]
+    },
+    {
+      "name": "References",
+      "description": "CRUD for /api/references/ plus the ?track= and ?term= filters. Reads include track_title, term_name and term_type.",
+      "item": [
+        {
+          "name": "List references",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is a list\", () => pm.expect(pm.response.json()).to.be.an(\"array\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/references/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create reference",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"Response has an id\", () => pm.expect(pm.response.json().id).to.be.a(\"number\"));",
+                  "pm.collectionVariables.set(\"reference_id\", pm.response.json().id);",
+                  "pm.test(\"timestamp is 1:05\", () => pm.expect(pm.response.json().timestamp).to.eql(\"1:05\"));",
+                  "pm.test(\"Read fields include names\", () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body).to.include.keys(\"track_title\", \"term_name\", \"term_type\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/references/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"track\": \"{{track_id}}\",\n  \"term\": \"{{term_id}}\",\n  \"timestamp_seconds\": 65,\n  \"context_note\": \"Created by Postman.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Get reference by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"timestamp_seconds is 65\", () => pm.expect(pm.response.json().timestamp_seconds).to.eql(65));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/references/{{reference_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                "{{reference_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update reference (PUT)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"timestamp is 2:00\", () => pm.expect(pm.response.json().timestamp).to.eql(\"2:00\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/references/{{reference_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                "{{reference_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"track\": \"{{track_id}}\",\n  \"term\": \"{{term_id}}\",\n  \"timestamp_seconds\": 120,\n  \"context_note\": \"Replaced with PUT.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Partial update reference (PATCH)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"context_note is Changed with PATCH.\", () => pm.expect(pm.response.json().context_note).to.eql(\"Changed with PATCH.\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/references/{{reference_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                "{{reference_id}}",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"context_note\": \"Changed with PATCH.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Filter references by track",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Every item has the requested track\", () => {",
+                  "  const items = pm.response.json();",
+                  "  pm.expect(items.length).to.be.above(0);",
+                  "  items.forEach((item) => pm.expect(String(item.track)).to.eql(String(pm.collectionVariables.get(\"track_id\"))));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/references/?track={{track_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "track",
+                  "value": "{{track_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter references by term",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Every item has the requested term\", () => {",
+                  "  const items = pm.response.json();",
+                  "  pm.expect(items.length).to.be.above(0);",
+                  "  items.forEach((item) => pm.expect(String(item.term)).to.eql(String(pm.collectionVariables.get(\"term_id\"))));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/references/?term={{term_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "term",
+                  "value": "{{term_id}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Validation errors",
+      "description": "Requests that must fail with 400 or 404.",
+      "item": [
+        {
+          "name": "Reference timestamp past track duration (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"Error names timestamp_seconds and the duration\", () => {",
+                  "  const message = pm.response.json().timestamp_seconds[0];",
+                  "  pm.expect(message).to.include(\"240 seconds\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/references/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                ""
+              ]
+            },
+            "description": "The track lasts 240 seconds after the PUT, so 9999 is rejected with a clear message.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"track\": \"{{track_id}}\",\n  \"term\": \"{{term_id}}\",\n  \"timestamp_seconds\": 9999,\n  \"context_note\": \"Too late.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Reference negative timestamp (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"Error is on timestamp_seconds\", () => pm.expect(pm.response.json()).to.have.property(\"timestamp_seconds\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/references/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"track\": \"{{track_id}}\",\n  \"term\": \"{{term_id}}\",\n  \"timestamp_seconds\": -5,\n  \"context_note\": \"Negative.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Duplicate reference (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/references/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"track\": \"{{track_id}}\",\n  \"term\": \"{{term_id}}\",\n  \"timestamp_seconds\": 120,\n  \"context_note\": \"Same track, term and timestamp.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Term with missing fields (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"Required fields are reported\", () => pm.expect(pm.response.json()).to.include.keys(\"type\", \"explanation\", \"sources\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/terms/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                ""
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Incomplete term\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Invalid filter value (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/terms/?type=bogus",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "bogus"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Artist that does not exist (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/artists/999999/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "artists",
+                "999999",
+                ""
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cleanup",
+      "description": "Deletes everything the collection created, children first.",
+      "item": [
+        {
+          "name": "Delete reference",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/references/{{reference_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "references",
+                "{{reference_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete term",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/terms/{{term_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "terms",
+                "{{term_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete track",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/tracks/{{track_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "tracks",
+                "{{track_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete album",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/albums/{{album_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "albums",
+                "{{album_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete artist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/artists/{{artist_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "artists",
+                "{{artist_id}}",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get deleted artist (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/artists/{{artist_id}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "artists",
+                "{{artist_id}}",
+                ""
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
