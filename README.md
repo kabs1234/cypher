@@ -2,9 +2,9 @@
 
 A context layer for hip-hop listeners. Cypher explains the cultural context in hip-hop tracks (people, places, events, brands, religious references, slang) for listeners who did not grow up inside that culture.
 
-Every explanation is anchored to a **track and a timestamp**, not to a lyric line. Cypher stores no lyrics: only track titles, timestamps and its own explanations.
+Every explanation is anchored to a track and a timestamp, not to a lyric line. Cypher stores no lyrics: only track titles, timestamps and its own explanations.
 
-Backend and REST API only (Django + Django REST Framework + PostgreSQL), fully containerized with Docker Compose. Everything is demonstrated through Postman and Swagger UI.
+Backend and REST API (Django + Django REST Framework + PostgreSQL), fully containerized with Docker Compose and demonstrated through Postman and Swagger UI. An optional reading frontend (Vue 3 + TypeScript, served by nginx) runs next to it; see [Frontend](#frontend).
 
 ## Data model
 
@@ -49,9 +49,10 @@ Every model has `created_at` / `updated_at`. `status` and `overview_status` are 
 
 - **backend**: custom image (`backend/Dockerfile`, `python:3.12-slim`, non-root user). On start, `entrypoint.sh` applies migrations, loads seed data if the database is empty, then starts Django on `0.0.0.0:8000`.
 - **db**: official `postgres:16` image. It has a `pg_isready` healthcheck, and the backend waits for it with `depends_on: condition: service_healthy`.
-- **cypher-net**: a user-defined bridge network that both services join. The backend reaches the database at host `db` (the service name), never `localhost`.
+- **frontend**: nginx serving the built Vue app on port 8080 and proxying `/api/` to the backend. Optional; see [Frontend](#frontend).
+- **cypher-net**: a user-defined bridge network that all three services join. The backend reaches the database at host `db` (the service name), never `localhost`.
 - **pgdata**: a named volume, so database files survive `docker compose down`. Only `docker compose down -v` deletes them.
-- The database port is **not** published to the host. Only the backend needs it, and the backend reaches it over the private network.
+- The database port is not published to the host. Only the backend needs it, and the backend reaches it over the private network.
 
 ## Run it
 
@@ -68,6 +69,7 @@ On the first start the backend applies migrations and seeds Kendrick Lamar's *DA
 
 | URL | What |
 |---|---|
+| http://localhost:8080/ | Frontend |
 | http://localhost:8000/api/ | API root (links to all 5 resources) |
 | http://localhost:8000/api/docs/ | Swagger UI |
 | http://localhost:8000/api/schema/ | OpenAPI 3 schema (YAML) |
@@ -76,7 +78,7 @@ On the first start the backend applies migrations and seeds Kendrick Lamar's *DA
 Useful commands:
 
 ```bash
-docker compose ps                                            # status + health of both services
+docker compose ps                                            # status + health of every service
 docker compose logs -f backend                               # follow backend logs
 docker compose exec backend python manage.py createsuperuser # login for /admin/
 docker compose exec backend python manage.py test catalog    # run the test suite
@@ -126,6 +128,45 @@ To add *good kid, m.A.A.d city* or *To Pimp a Butterfly*, add a new JSON file wi
 
 All seeded terms and the album overview have status `draft`, with Wikipedia sources. **Timestamps are approximate** and need to be checked against the audio before anything is marked `verified`.
 
+## Frontend
+
+A reading app for listeners, in `frontend/`. It is optional: the API works the same with or without it.
+
+| URL | What |
+|---|---|
+| `/` | Albums |
+| `/albums/:id` | Album briefing (`overview`) and track list with reference counts |
+| `/tracks/:id` | Track timeline: references grouped by timestamp along the track's duration. Selecting a marker or a row shows the term's explanation, sources, notes and every other track it comes up on. Add or delete references here |
+| `/terms` | All terms, filtered by type and status (filters are kept in the URL, e.g. `/terms?type=religion&status=draft`) |
+| `/terms/:id`, `/terms/new`, `/terms/:id/edit` | Term detail, create and edit |
+
+Forms don't validate in the browser. They show the API's `400` messages under the matching field (`non_field_errors` above the form). Draft content carries a hatched yellow "Unverified draft" badge, verified content a solid one, and every track page says that timestamps are approximate.
+
+Built with Vue 3 (Composition API, `<script setup lang="ts">`), TypeScript, Vite and Vue Router. There is no state library: each screen loads its own data through the `useAsync` composable. Fonts (Archivo, Source Serif 4) are bundled from `@fontsource`, so the page makes no third-party requests.
+
+In Docker, the `frontend` service (`frontend/Dockerfile`: Node builds the app, then `nginx:1.27-alpine` serves `dist/`) proxies `/api/` to `backend:8000` over `cypher-net` and falls back to `index.html` for client-side routes. In development, Vite's dev server proxies `/api` to `localhost:8000`. Either way the browser sees one origin, so Django needs no CORS settings.
+
+```
+browser --> :8080 frontend (nginx) --/api/--> backend:8000 --> db:5432
+                 \-- everything else: static files from dist/
+```
+
+To work on it locally, with the backend running in Docker:
+
+```bash
+cd frontend
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # type-check with vue-tsc, then build to dist/
+```
+
+| Path | Role |
+|---|---|
+| `src/api/` | `types.ts` (API shapes), `client.ts` (fetch wrapper, `ApiError`, field errors), `resources.ts` (list/get/create/update/remove per endpoint) |
+| `src/composables/` | `useAsync` (load data with loading/error state), `useElementWidth` (timeline layout) |
+| `src/components/` | `TrackTimeline`, `TermDetail`, `ReferenceForm`, `FormField`, `StatusBadge`, `TypeTag`, `LoadState` |
+| `src/views/` | one component per route |
+
 ## Repository layout
 
 ```
@@ -135,6 +176,7 @@ cypher/
 ├── README.md
 ├── docs/API.md               endpoint reference
 ├── postman/                  collection + environment
+├── frontend/                 Vue app, Dockerfile, nginx.conf
 └── backend/
     ├── Dockerfile
     ├── entrypoint.sh         migrate -> seed if empty -> runserver
